@@ -1,0 +1,379 @@
+
+<main class="main-content position-relative border-radius-lg overflow-hidden">
+  <!-- Navbar -->
+
+ 
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-lg-3 col-sm-6 mb-lg-0 mb-4">
+        <div class="card">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-8">
+                <div class="numbers">
+                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Status</p>
+                  <h5 class="font-weight-bolder mb-0">
+                    {{project.status}}
+                  </h5>
+                </div>
+              </div>
+              <div class="col-4 text-start">
+                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                  <i class="ni ni-check-bold text-lg opacity-10" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 mb-lg-0 mb-4">
+        <div class="card">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-8">
+                <div class="numbers">
+                  <p class="text-sm mb-0 text-capitalize font-weight-bold"> Start Date</p>
+                  <h5 class="font-weight-bolder mb-0">
+                    {{project.startDate}}
+                  </h5>
+                </div>
+              </div>
+              <div class="col-4 text-start">
+                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                  <i class="ni ni-calendar-grid-58 text-lg opacity-10" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 mb-lg-0 mb-4">
+        <div class="card">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-8">
+                <div class="numbers">
+                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Due Date</p>
+                  <h5 class="font-weight-bolder mb-0">
+                    {{project.dueDate}}
+                  </h5>
+                </div>
+              </div>
+              <div class="col-4 text-start">
+                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                  <i class="ni ni-calendar-grid-58 text-lg opacity-10" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 mb-lg-0 mb-4">
+        <div class="card">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-8">
+                <div class="numbers">
+                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Team</p>
+                  <h5 class="font-weight-bolder mb-0">
+                    {{employeeProjects.length}}
+                  </h5>
+                </div>
+              </div>
+              <div class="col-4 text-start">
+                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                  <i class="ni ni-single-02 text-lg opacity-10" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-7 mb-lg-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h6 class="mt-3">Budget</h6>
+                                  {{project.budget}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h6 class="mt-3">Cost</h6>
+                                {{project.cost}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h6 class="mt-3">Remaining</h6>
+                                {{project.budget - project.cost}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col">
+                 
+                        <div class="progress" *ngIf="costPercentage <= 50">
+                            <div  class="progress-bar bg-success" role="progressbar" [style.width.%]="costPercentage " [attr.aria-valuenow]="project.cost " aria-valuemin="0" 
+                            aria-valuemax="100">
+                              {{ costPercentage  }}%
+                            </div>
+                          </div>
+                
+                          <div class="progress" *ngIf="costPercentage > 50  && costPercentage <= 80">
+                            <div  class="progress-bar bg-warning" role="progressbar" [style.width.%]="costPercentage " [attr.aria-valuenow]="costPercentage " aria-valuemin="0" 
+                            aria-valuemax="100">
+                              {{ costPercentage  }}%
+                            </div>
+                          </div>
+                
+                          <div class="progress" *ngIf="costPercentage >80">
+                            <div  class="progress-bar bg-danger" role="progressbar" [style.width.%]="costPercentage " [attr.aria-valuenow]="costPercentage " aria-valuemin="0" 
+                            aria-valuemax="100">
+                              {{ costPercentage }}%
+                            </div>
+                          </div>
+                          
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+      <div class="col-lg-5">
+        <div class="card h-100 p-3">
+          <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('{{project.image}}');">
+            <span class="mask bg-gradient-dark"></span>
+            <div class="card-body position-relative z-index-1 p-3 h-100">
+              <div class="d-flex flex-column h-100">
+                <h5 class="text-white font-weight-bolder mb-4 pt-2">{{project.name}}</h5>
+                
+                <p class="text-white mb-5">  {{project.description}} </p>
+                <a class="text-white font-weight-bold ps-1 mb-0 icon-move-left mt-auto" href="javascript:;">Edit
+                  <i type="button" class="fas fa-arrow-left text-sm ms-1" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#updateProjectForm"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+ <!-- Update Project Form Modal -->
+<div class="container mt-5 project-info-container">
+<div class="modal fade" id="updateProjectForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" >
+        <div class="modal-header  text-white"  >
+          <h5 class="modal-title" id="exampleModalLabel">update New Project</h5>
+          <button type="button" id="closeButton" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="alert" class="alert alert-danger" role="alert">
+            <pre [innerHTML]="alertMessage"></pre>
+           </div>
+          <form  #updateProjectForm="ngForm" >
+            <div class="mb-3">
+              <label for="projectName" class="form-label">Name</label>
+             <input type="text" class="form-control" id="projectName"ngModel="{{project.name}}" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="projectDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="projectDescription" ngModel="{{project.description}}" name="description" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="projectBudget" class="form-label">Budget</label>
+              <input type="number" class="form-control" id="projectBudget" ngModel="{{project.budget}}" name="budget" required>
+            </div>
+            <div class="mb-3">
+              <label for="projectStartDate" class="form-label">Start Date</label>
+              <input type="date" class="form-control" id="projectStartDate" ngModel="{{project.startDate}}" name="startDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="projectDueDate" class="form-label">Due Date</label>
+              <input type="date" class="form-control" id="projectDueDate" ngModel="{{project.dueDate}}" name="dueDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="projectStatus" class="form-label">Status</label>
+              <select class="form-select" id="projectStatus"ngModel="{{project.status}}"  name="status" required>
+                <option value="completed">Completed</option>
+                <option value="in progress">In Progress</option>
+                <option value="canceled">Canceled</option>
+                <option value="pending">Pending</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="projectImage" class="form-label">Image URL</label>
+              <input type="file" class="form-control" id="projectImage" ngModel="{{project.image}}" name="image" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer" >
+          <button type="button" #updateProjectCloseButton class="btn btn-warning" data-bs-dismiss="modal"(click)="ngOnInit()">Close</button>
+          <button type="button"  class="btn btn-success" (click)="onUpdateProject(updateProjectForm)">Save Project</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+      
+
+
+<!-- Team Members -->
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-header pb-0 d-flex align-items-center justify-content-between">
+            <h6 class="col-6">Employees Working On This Project</h6>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addMember" (click)="onaddMember(projectId)">Add Member</button>
+          </div>
+        
+          <div class="card-body px-0 pt-0 pb-2"  *ngIf="employeeProjects && employeeProjects.length > 0">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0 shadow-table">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Task</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Work Load</th>
+                    <th class="text-secondary opacity-7"></th>
+                  </tr>
+                </thead>
+                <tbody>
+        
+                  <tr *ngFor="let employeeProject of employeeProjects">
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="{{employeeProject.employee.image}}" class="avatar avatar-sm me-3" alt="user1">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{employeeProject.employee.firstName}}</h6>
+                          <p class="text-xs text-secondary mb-0">{{employeeProject.employee.jobTitle}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{employeeProject.task}}</p>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm bg-gradient-success">{{employeeProject.workHours}}</span>
+                    </td>
+    
+                    <td class="align-middle">
+                        <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;" (click)="onRemoveEmployee(employeeProject)"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                        <a  type="button"  data-bs-toggle="modal" data-bs-target="#updateMember" class="btn btn-link text-dark px-3 mb-0" href="javascript:;" (click)="setUpdateMemberInfo(employeeProject)"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                    </td>
+                    
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+
+<!-- Add Member -->
+<div class="modal fade" id="addMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" >
+      <div class="modal-header  text-white"  >
+        <h5 class="modal-title" id="exampleModalLabel">Add Memeber</h5>
+        <button type="button" class="btn-close btn-close-white" id="closeButton2" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="card h-100">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <h6 class="mb-0">Employees</h6>
+                </div>
+                
+              </div>
+            </div>
+            <div class="card-body p-3 pb-0">
+              <ul class="list-group">
+                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg" *ngFor="let employee of employeesNoP ">
+                  <div class="d-flex align-items-center">
+                    <img src="{{employee.image}}" class="avatar avatar-sm me-3" alt="user1">
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-1 text-dark font-weight-bold text-sm">{{employee.firstName}} {{employee.lastName}}</h6>
+                        <span class="text-xs">{{employee.jobTitle}}</span>
+                    </div>
+                </div>
+                
+                  <div></div>
+                  <div class="d-flex align-items-center text-sm">
+          
+                    <button type="button" class="btn btn-outline-danger" (click)="addEmployee(employee)">Add</button>
+                  </div>
+                </li>
+               
+
+              </ul>
+            </div>
+          </div>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Update Member Info-->
+<div class="modal fade" id="updateMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" >
+      <div class="modal-header  text-white"  >
+        <h5 class="modal-title"  id="exampleModalLabel">Update member</h5>
+        <button type="button" class="btn-close btn-close-white" id="closeButton3" data-bs-dismiss="modal" aria-label="Close" (click)="resetForm()"></button>
+      </div>
+      <div class="modal-body">
+          <div class="card h-100">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <h6 class="mb-0">{{UpdateMemberInfo.employee.firstName}}'s Task</h6>
+                </div>
+    
+              </div>
+            </div>
+            <div class="card-body p-3 pb-0">
+              <form class="row g-3" (ngSubmit)="onUpdateMember()" #updateMemberForm="ngForm" id="updateMemberForm">
+                <div class="col-md-12">
+                  <label for="inputEmail4"  class="form-label">Task</label>
+                  <input class="form-control"  name="task" [(ngModel)] ="task" placeholder="{{UpdateMemberInfo.task}}">
+                </div>
+                <div class="col-md-6 center">
+                  <label for="inputPassword4"   class="form-label">Work Hours</label>
+                  <input type="number"  name="workHours"  class="form-control"[(ngModel)] ="workHours" placeholder="{{UpdateMemberInfo.workHours}}" >
+                </div>
+                
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary" >Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+       
+      </div>
+    </div>
+  </div>
+</div>

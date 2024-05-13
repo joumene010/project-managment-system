@@ -1,0 +1,167 @@
+
+<main class="main-content position-relative border-radius-lg ">
+  
+    <div class="container-fluid py-4">
+        <div class="mb-3">
+           <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addEmployeeForm">Add Employee</button>
+        </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0">
+              <h6>Employees table</h6>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+                
+              <div class="table-responsive p-0">
+                <table class="table align-items-center justify-content-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone Number</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Job Title</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Salary</th>
+                      <th class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Details</th>
+                      <th class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Delete</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let employee of employees">
+                      <td class="">
+                        <div class="d-flex px-2">
+                          <div>
+                            <img src="{{employee.image}}" class="avatar avatar-sm rounded-circle me-2">
+                          </div>
+                          <div class="my-auto">
+                            <h6 class="mb-0 text-sm">{{ employee.firstName }} {{ employee.lastName }}</h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <span class="text-xs font-weight-bold">{{ employee.email }}</span>
+                      </td>
+                      <td class="text-center">
+                        <span class="text-xs font-weight-bold">{{ employee.phoneNumber }}</span>
+                      </td>
+                      <td class="text-center">
+                        <span class="text-xs font-weight-bold">{{ employee.jobTitle }}</span>
+                      </td>
+              
+                      <td class="text-center">
+                        <span class="text-xs font-weight-bold">{{ employee.salary }}</span>
+                      </td>
+                     
+                      <td class="align-middle">
+                        <button class="btn btn-primary" (click)="onViewEmployee(employee)">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                      <td class="align-middle">
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" (click)="setDeleteEmployee(employee)">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    
+               
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+
+
+<!-- Add Employee Form Modal -->
+<div class="modal fade" id="addEmployeeForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="alert" class="alert alert-danger" role="alert">
+          <pre> {{alertMessage}}</pre>
+        </div>
+        <form #addEmployeeForm="ngForm" class="row g-3">
+          <div class="col-6">
+            <label for="EmployeeFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="EmployeeFirstName" [(ngModel)]="newEmployee.firstName" name="firstName" required>
+          </div>
+          <div class="col-6">
+            <label for="EmployeeLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="EmployeeLastName" [(ngModel)]="newEmployee.lastName" name="lastName" required>
+          </div>
+          <div class="mb-3">
+            <label for="EmployeeEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="EmployeeEmail" [(ngModel)]="newEmployee.email" name="email" placeholder="name@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="EmployeePhoneNumber" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="EmployeePhoneNumber" [(ngModel)]="newEmployee.phoneNumber" name="phoneNumber" required>
+          </div>
+          <div class="mb-3">
+            <label for="EmployeeJobTitle" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="EmployeeJobTitle" [(ngModel)]="newEmployee.jobTitle" name="jobTitle" required>
+          </div>
+          <div class="mb-3">
+            <label for="EmployeeSalary" class="form-label">Salary</label>
+            <input type="number" class="form-control" id="EmployeeSalary" [(ngModel)]="newEmployee.salary" name="salary" required>
+          </div>
+          <div class="mb-3">
+            <label for="projectImage" class="form-label">Image URL</label>
+            <input  type="file"   class="form-control"  id="imageInput" id="employeeImage" [(ngModel)]="newEmployee.image" name="image" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" >
+        <button type="button" id="closeButton" class="btn btn-warning" data-bs-dismiss="modal" (click)="closeAddForm()">Close</button>
+        <button type="button"  [disabled]="addEmployeeForm.invalid" class="btn btn-success" (click)="onAddEmployee()">Save Employee</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Delete Employee Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="deleteAlert" class="alert alert-danger" role="alert">
+          <pre> {{deleteAlertMessage}}</pre>
+        </div>
+        <div *ngIf="!deleteAlert">
+        Are you sure you want to delete this Employee?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCancelDeleteEmployee()">Cancel</button>
+        <button type="button" *ngIf="!deleteAlert" class="btn btn-danger" data-bs-dismiss="modal" (click)="onDeleteEmployee()" >Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+  
+  </main>
+  <script src="path-to-jquery/jquery.min.js"></script>
+  <script src="path-to-bootstrap/js/bootstrap.min.js"></script>
+  <script src="your-custom-script.js"></script>
+  
